@@ -1,12 +1,16 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, { useEffect,useState } from 'react';
+import Nav from '../../components/nav/Nav';
 
 function Home(props) {
+    const [linkNavActivo, setlinkNavActivo] = useState("")
+
+    useEffect(() => {
+        setlinkNavActivo("nav-link-3")
+    }, [ ])
+    
     return (
         <div>
-          <ul>
-            <li><Link to="/about">Acerca de</Link></li>
-          </ul>
+            <Nav linkNavActivo={linkNavActivo}/>
             <h1 >este es el home</h1>
         </div>
     );

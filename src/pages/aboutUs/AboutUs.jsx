@@ -1,19 +1,18 @@
-import React from 'react';
-import { Route, Link, Routes } from 'react-router-dom';
+import React, {  useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import AboutPage from './AboutPage';
 import ContactUs from './ContactUs';
+import Nav from '../../components/nav/Nav';
 
 function AboutUs(props) {
+  const [linkNavActivo, setlinkNavActivo] = useState("")
     return (
         <div>
-          <h2>Acerca de nosotros links</h2>
-          <ul>
-            <li><Link to="/about/contact">Blog</Link></li>
-            <li><Link to="/home">Home</Link></li>
-          </ul>
-            <Routes>
-                <Route exact path="/about" element={<AboutPage />} />
-                <Route path="/contact" element={<ContactUs />} />
+          <Nav linkNavActivo={linkNavActivo}/>
+            <h1>este es el contenido de aboutUs</h1>
+            <Routes>              
+                <Route exact path="/about" element={<AboutPage setlinkNavActivo={setlinkNavActivo} />} />
+                <Route path="/contact" element={<ContactUs setlinkNavActivo={setlinkNavActivo} />} />
             </Routes>
         </div>
       );

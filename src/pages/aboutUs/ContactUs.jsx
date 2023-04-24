@@ -1,14 +1,11 @@
-import React from 'react';
-
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
 function ContactUs(props) {
+    useEffect(() => {
+        props.setlinkNavActivo("nav-link-2")
+    }, [ ])
     return (
         <div>
-          <ul>
-            <li><Link to="/about">Acerca de</Link></li>
-            <li><Link to="/home">Home</Link></li>
-          </ul>
             <h1 style={{textAlign:"center"}}>este es el apartado de contactUs</h1>
         </div>
     );
