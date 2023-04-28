@@ -13,11 +13,13 @@ function Home(props) {
       .then(function (response) {
         // handle success
         var arrayrate = [];
-        var arraycount = [];
         response.data.map((data) => {
-          arraycount.push(data.rating.count);
-          return arrayrate.push(data.rating.rate);
+          if (data.category==="men's clothing") {
+            arrayrate.push(data.rating.rate);
+          }
+
         });
+        console.log(arrayrate);
         
         arrayrate = arrayrate.filter((valor, indice) => {
           return arrayrate.indexOf(valor) === indice;
@@ -29,23 +31,30 @@ function Home(props) {
         productsFinals=products.filter(dataFilter=>dataFilter.rating.rate===arrayrate[0])
         if (productsFinals.length!==3) {
             const products2=products.filter(dataFilter=>dataFilter.rating.rate===arrayrate[1]);
-            products2.map(dataProducts2=>productsFinals.push(dataProducts2))
+            if (products2.length===1) {
+              products2.map(dataProducts2=>productsFinals.push(dataProducts2))
+            }else if(products2.length>1){
+              var arrayProducts2=[]
+              products2.map(dataProducts2=>arrayProducts2.push(dataProducts2.rating.count))
+              arrayProducts2=arrayProducts2.sort((a, b) => b - a);
+              arrayProducts2=products2.filter(dataFilter=>dataFilter.rating.count===arrayProducts2[0])
+              productsFinals.push(...arrayProducts2);
+            }
         }
-        console.log(productsFinals);
+        setbestProducts(productsFinals);
     })
       .catch(function (error) {
-        // handle error
         console.log(error);
       })
-      .finally(function () {
-        // always executed
-      });
   }, []);
 
   return (
     <div>
       <Nav linkNavActivo={linkNavActivo} />
-      <Carrousel />
+      <h2>Nuestros mejores productos</h2>
+      <div class="d-flex justify-content-center">
+      <Carrousel bestProducts={bestProducts}/>
+      </div>
     </div>
   );
 }
